@@ -1,7 +1,9 @@
 from django import forms
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 class ContactForm(forms.Form):
-    nome_completo = forms.CharField(
+    full_name = forms.CharField(
         widget=forms.TextInput(
             attrs={
                     "class": "form-control", 
@@ -9,7 +11,7 @@ class ContactForm(forms.Form):
                 }
             )
         )
-    email = forms.EmailField(
+    email     = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
                     "class": "form-control", 
@@ -17,7 +19,7 @@ class ContactForm(forms.Form):
                 }
             )
         )
-    mensagem = forms.CharField(
+    content   = forms.CharField(
         widget=forms.Textarea(
             attrs={
                     "class": "form-control", 
@@ -25,10 +27,11 @@ class ContactForm(forms.Form):
                 }
             )
         )
+    
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if not "gmail.com" in email:
-            raise forms.ValidationError("O email deve ser do gmail.com")
+            raise forms.ValidationError("O Email deve ser do gmail.com")
         return email
 
 class LoginForm(forms.Form):
@@ -61,4 +64,4 @@ class RegisterForm(forms.Form):
         password2 = self.cleaned_data.get('password2')
         if password != password2:
             raise forms.ValidationError("As senhas informadas devem ser iguais!")
-        return data    
+        return data
