@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -6,17 +6,17 @@ from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
     context = {
-                    "title": "Home Page",
-                    "content": "Bem vindo a Home Page",
+                    "title": "Elas usam ml",
+                    "content": "Bem vinda a Home",
               }
     if request.user.is_authenticated:
-        context["premium_content"] = "Você é um usuário Premium"
+        context["premium_content"] = "Bem vinda a ML Store"
     return render(request, "home_page.html", context)
 
 def about_page(request):
     context = {
                     "title": "About Page",
-                    "content": "Bem vindo a About Page"
+                    "content": "Bem vinda a About Page"
               }
     return render(request, "about/view.html", context)
 
@@ -24,7 +24,7 @@ def contact_page(request):
     contact_form = ContactForm(request.POST or None)
     context = {
                     "title": "Fale conosco",
-                    "content": "Bem vindo a página de contato",
+                    "content": "Bem vinda a página de contato",
                     "form": contact_form	
               }
     if contact_form.is_valid():
@@ -55,6 +55,13 @@ def login_page(request):
             #Retorna uma mensagem de erro de 'invalid login'.
             print("Login inválido")
     return render(request, "auth/login.html", context)
+
+def logout_page(request):
+    context = {
+                "content": "Você efetuou o logout com sucesso! :)"
+              }
+    logout(request)
+    return render(request, "auth/logout.html", context)
 
 User = get_user_model()
 def register_page(request):
