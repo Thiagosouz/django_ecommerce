@@ -4,6 +4,7 @@ from django.db.models.signals import pre_save
 from django.urls import reverse
 #Custom queryset
 class ProductQuerySet(models.query.QuerySet):
+    
     def active(self):
         return self.filter(active = True)
 
@@ -19,7 +20,7 @@ class ProductManager(models.Manager):
         return self.get_queryset().active()
 
     def featured(self):
-        #return self.get_queryset().filter(featured = True)
+        #self.get_queryset().filter(featured = True)
         return self.get_queryset().featured()
 
     def get_by_id(self, id):
@@ -42,12 +43,13 @@ class Product(models.Model): #product_category
     objects = ProductManager()
 
     def get_absolute_url(self):
-        return "/products/{slug}/".format(slug = self.slug)
+        #return "/products/{slug}/".format(slug = self.slug)
         return reverse("products:detail", kwargs={"slug": self.slug})
     
     #python 3
     def __str__(self):
         return self.title
+        
     #python 2
     def __unicode__(self):
         return self.title
@@ -56,4 +58,4 @@ def product_pre_save_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
 
-pre_save.connect(product_pre_save_receiver, sender = Product)    
+pre_save.connect(product_pre_save_receiver, sender = Product)
