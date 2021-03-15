@@ -5,26 +5,28 @@ from django.shortcuts import render, redirect
 from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
+    print(request.session.get('first_name', 'Unknow'))
+    # print(request.session.get(first_name))
     context = {
-                    "title": "Elas usam ml",
-                    "content": "Bem vinda a Home",
+                    "title": "Home Page",
+                    "content": "Bem vindo a Home Page",
               }
     if request.user.is_authenticated:
-        context["premium_content"] = "Bem vinda a ML Store"
+        context["premium_content"] = "Você é um usuário Premium"
     return render(request, "home_page.html", context)
-
+    
 def about_page(request):
     context = {
-                    "title": "About Page",
-                    "content": "Bem vinda a About Page"
+                    "title": "Página Sobre",
+                    "content": "Bem vindo a página sobre"
               }
     return render(request, "about/view.html", context)
 
 def contact_page(request):
     contact_form = ContactForm(request.POST or None)
     context = {
-                    "title": "Fale conosco",
-                    "content": "Bem vinda a página de contato",
+                    "title": "Página de Contato",
+                    "content": "Bem vindo a página de contato",
                     "form": contact_form	
               }
     if contact_form.is_valid():
@@ -37,18 +39,19 @@ def login_page(request):
                     "form": form
               }
     print("User logged in")
-    #print(request.user.is_authenticated)
+    print(request.user.is_authenticated)
     if form.is_valid():
         print(form.cleaned_data)
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
         user = authenticate(request, username=username, password=password) 
         print(user)
-        #print(request.user.is_authenticated)
+        print(request.user.is_authenticated)
         if user is not None:
-            #print(request.user.is_authenticated)
+            print(request.user.is_authenticated)
             login(request, user)
             print("Login válido")
+            print(request.user.is_authenticated)
             # Redireciona para uma página de sucesso.
             return redirect("/")
         else:
