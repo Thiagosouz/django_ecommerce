@@ -7,4 +7,4 @@ def cart_home(request):
         request.session['cart_id'] = 12
     else:
         print("Cart ID exists")
-    return render(request, "carts/home.html", {} )
+    return render(request, "carts/home.html", {})

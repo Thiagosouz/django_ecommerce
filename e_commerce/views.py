@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
-    print(request.session.get('first_name', 'Unknow'))
+    print(request.session.get('first_name','Unknow'))
     # print(request.session.get(first_name))
     context = {
                     "title": "Home Page",
