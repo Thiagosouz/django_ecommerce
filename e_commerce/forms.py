@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 class ContactForm(forms.Form):
-    full_name = forms.CharField(
+    nome_completo = forms.CharField(
         widget=forms.TextInput(
             attrs={
                     "class": "form-control", 
@@ -11,7 +11,7 @@ class ContactForm(forms.Form):
                 }
             )
         )
-    email     = forms.EmailField(
+    email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
                     "class": "form-control", 
@@ -19,7 +19,7 @@ class ContactForm(forms.Form):
                 }
             )
         )
-    content   = forms.CharField(
+    mensagem = forms.CharField(
         widget=forms.Textarea(
             attrs={
                     "class": "form-control", 
@@ -30,7 +30,7 @@ class ContactForm(forms.Form):
     
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        if not "gmail.com" in email:
+        if not ".com" in email:
             raise forms.ValidationError("O Email deve ser do gmail.com")
         return email
 
@@ -55,7 +55,7 @@ class RegisterForm(forms.Form):
         email = self.cleaned_data.get('email')
         qs = User.objects.filter(email=email)
         if qs.exists():
-            raise forms.ValidationError("Esse email já existe, tente outro!")
+            raise forms.ValidationError("Esse email já existe.")
         return email
 
     def clean(self):

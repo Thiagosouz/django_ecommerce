@@ -11,7 +11,8 @@
             <div class='col-sm-6 col-12'>
             <form method='POST'> {% csrf_token %}
                 {{ form }}
-                <button type='submit' class='btn btn-default'>Enviar</button>
+                <button type='submit' autocomplete="off" class='btn btn-default'>Enviar</button>
+                <button type="reset" class="btn btn-danger">Cancelar</button>
             </form>
             </div>
         </div>

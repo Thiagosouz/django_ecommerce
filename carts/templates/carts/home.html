@@ -2,13 +2,13 @@
 
 
 {% block content %}
-  <h1>Cart</h1>
+  <h1>Carrinho</h1>
 
   {% if cart.products.exists %}
   <table class="table">
     <thead>
       <tr>
-        <th>#</th>
+        <th>Produtos</th>
         <th>Nome</th>
         <th>Preço</th>
       </tr>
@@ -36,7 +36,7 @@
   </table>
 
   {% else %}
-    <p class='lead'>Carrinho vazio</p>
+    <p class='lead'>Seu carrinho está vazio! :(</p>
   {% endif %}
 
 
