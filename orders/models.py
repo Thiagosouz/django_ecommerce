@@ -21,7 +21,7 @@ class Order(models.Model):
     # Order total = models.DecimalField(default = 0.00, max_digits = 100, decimal_places = 2)
 
     def __str__(self):
-        return self
+        return self.order_id
 
 def pre_save_create_order_id(sender, instance, *args, **kwargs):
     if not instance.order_id:
